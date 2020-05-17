@@ -4,26 +4,41 @@ import com.michaldurkalec.fw.fastnfurious.domain.Cinema;
 import com.michaldurkalec.fw.fastnfurious.domain.Movie;
 import com.michaldurkalec.fw.fastnfurious.domain.MovieShow;
 import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
+import com.michaldurkalec.fw.fastnfurious.service.MovieRatingService;
 import com.michaldurkalec.fw.fastnfurious.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.TOO_MANY_REQUESTS;
 
 @RestController
 public class MoviesController extends BaseMoviesRestController {
 
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private MovieRatingService movieRatingService;
 
     @GetMapping("/")
     public List<Movie> listMovies() {
         return movieService.listMovies();
+    }
+
+    @PostMapping("{id}/rate")
+    public ResponseEntity rateMovie(@PathVariable(name = "id") String id, HttpServletRequest request) {
+        if (movieRatingService.rateMovie(id, request.getRemoteAddr())) {
+            return ResponseEntity.status(CREATED).build();
+        } else {
+            return ResponseEntity.status(TOO_MANY_REQUESTS).build();
+        }
     }
 
     @GetMapping("/details")
