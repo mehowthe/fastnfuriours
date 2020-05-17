@@ -1,7 +1,7 @@
 package com.michaldurkalec.fw.fastnfurious.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.michaldurkalec.fw.fastnfurious.domain.OMDbMovieDetails;
+import com.michaldurkalec.fw.fastnfurious.domain.dto.OMDbMovieDetails;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

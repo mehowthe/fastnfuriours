@@ -1,7 +1,7 @@
 package com.michaldurkalec.fw.fastnfurious.api;
 
-import com.michaldurkalec.fw.fastnfurious.domain.MovieDetails;
-import com.michaldurkalec.fw.fastnfurious.domain.OMDbMovieDetails;
+import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
+import com.michaldurkalec.fw.fastnfurious.domain.dto.OMDbMovieDetails;
 import com.michaldurkalec.fw.fastnfurious.service.OMDbClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

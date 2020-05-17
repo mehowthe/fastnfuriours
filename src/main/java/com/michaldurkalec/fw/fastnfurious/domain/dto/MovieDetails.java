@@ -1,4 +1,4 @@
-package com.michaldurkalec.fw.fastnfurious.domain;
+package com.michaldurkalec.fw.fastnfurious.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
