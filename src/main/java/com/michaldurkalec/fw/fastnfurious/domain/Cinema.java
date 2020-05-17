@@ -1,5 +1,6 @@
 package com.michaldurkalec.fw.fastnfurious.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -20,6 +21,7 @@ public class Cinema {
 
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonIgnore
     @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER)
     private Set<MovieShow> movieShows;
 }

@@ -1,5 +1,6 @@
 package com.michaldurkalec.fw.fastnfurious.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -19,8 +20,10 @@ import static javax.persistence.CascadeType.DETACH;
 public class MovieShow {
 
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
+
     @OneToOne(cascade = DETACH)
     @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     private Movie movie;
@@ -30,6 +33,5 @@ public class MovieShow {
     private Double price;
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
-
 
 }

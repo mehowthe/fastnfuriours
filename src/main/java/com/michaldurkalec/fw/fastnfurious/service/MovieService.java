@@ -3,8 +3,10 @@ package com.michaldurkalec.fw.fastnfurious.service;
 import com.michaldurkalec.fw.fastnfurious.domain.Movie;
 import com.michaldurkalec.fw.fastnfurious.domain.MovieShow;
 import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
+import com.michaldurkalec.fw.fastnfurious.repository.CinemaRepository;
 import com.michaldurkalec.fw.fastnfurious.repository.MovieRepository;
 import com.michaldurkalec.fw.fastnfurious.repository.MovieShowRepository;
+import lombok.experimental.Delegate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +24,9 @@ public class MovieService {
     private MovieShowRepository movieShowRepository;
     @Autowired
     private MovieRepository movieRepository;
+    @Delegate
+    @Autowired
+    private CinemaRepository cinemaRepository;
 
     public MovieDetails getMovieDetails(String id) {
         return MovieDetails.fromOMDbDetails(omDbClient.fetchMovieDetails(id));
