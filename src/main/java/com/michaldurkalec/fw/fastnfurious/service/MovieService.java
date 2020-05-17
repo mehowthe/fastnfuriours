@@ -6,7 +6,6 @@ import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
 import com.michaldurkalec.fw.fastnfurious.repository.MovieRepository;
 import com.michaldurkalec.fw.fastnfurious.repository.MovieShowRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -24,18 +23,22 @@ public class MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
+    public MovieDetails getMovieDetails(String id) {
+        return MovieDetails.fromOMDbDetails(omDbClient.fetchMovieDetails(id));
+    }
+
     public List<Movie> listMovies() {
         List<Movie> movies = new ArrayList<>();
         movieRepository.findAll().forEach(movies::add);
         return movies;
     }
 
-    public MovieDetails getMovieDetails(String id) {
-        return MovieDetails.fromOMDbDetails(omDbClient.fetchMovieDetails(id));
+    public List<MovieShow> findMovieShowsByMovie(String movieId) {
+        return movieShowRepository.findByMovie(movieId);
     }
 
-    public List<MovieShow> findMovieShows() {
-        return movieShowRepository.findAll(PageRequest.of(0, PAGE_LIMIT)).getContent();
+    public List<MovieShow> findMovieShowsByCinema(Long cinemaId) {
+        return movieShowRepository.findByCinema(cinemaId);
     }
 
 

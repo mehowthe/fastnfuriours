@@ -29,6 +29,6 @@ public class MoviesController extends BaseMoviesRestController {
 
     @GetMapping("/shows")
     public List<MovieShow> getMovieShowsByMovieId(@RequestParam(name = "id") String id) {
-        return movieService.findMovieShows();
+        return movieService.findMovieShowsByMovie(id);
     }
 }

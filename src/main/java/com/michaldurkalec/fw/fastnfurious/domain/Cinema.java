@@ -1,11 +1,14 @@
 package com.michaldurkalec.fw.fastnfurious.domain;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 @Entity
 public class Cinema {
 
@@ -15,6 +18,8 @@ public class Cinema {
     private String name;
     private String address;
 
-    @OneToMany(mappedBy = "cinema")
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER)
     private Set<MovieShow> movieShows;
 }
