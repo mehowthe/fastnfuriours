@@ -56,7 +56,7 @@ spring.datasource.password=admin
 2. User management - add groups of users that are allowed to make changes to their cinema movie repertoire
 3. Add proper authentication - for demo purpose it's using Basic Authentication
 4. Error handling and validation (there's only validation on adding new Rate (0-5 stars) right now)
-
+5. This is not a fully RESTful API - it's only covering required functionality
 #### Explanation of choices
 
 Spring Boot + H2 in-memory database + Spring Security + Spring REST + Spring Data - for a fast development
