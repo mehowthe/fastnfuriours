@@ -1,7 +1,7 @@
 # Backend Coding Challenge - The Fast and the Furious franchise
 ---
 ### Intro
-This is a solution for Backend Coding Challenge [details](https://gist.github.com/swistaczek/850979644d6df87231ee154958712a07)
+This is a solution for a Backend Coding Challenge [details](https://gist.github.com/swistaczek/850979644d6df87231ee154958712a07)
 A small cinema, which only plays movies from the Fast & Furious franchise, wish to support some functionalities as:
 * providing information about movie times
 * providing details about movies (that are fetched from [OMDB](http://www.omdbapi.com/))
@@ -21,7 +21,7 @@ A small cinema, which only plays movies from the Fast & Furious franchise, wish 
     - application should start handling requests on port 8080 ([localhost:8080](http://localhost:8080/))
 
 ### Build and run in a Docker container
-`docker build -t fastnfuriours:v1 .` - to build image
+`docker build -t fastnfuriours:v1 .` - to build an image
 `docker run -p 8080:8080 fastnfuriours:v1 -e OMDB_API_KEY=${YOUR_KEY}`
 
 #### Exploring API
@@ -69,4 +69,4 @@ The key point here is to show code style and best practices:
 - project structure, managing dependencies (DI), separation of concerns,
 
 ---
-Author: <Michal Durkalec mdurkalec@gmail.com>
+Author: <Michal Durkalec madurkalec@gmail.com>
