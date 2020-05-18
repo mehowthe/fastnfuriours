@@ -31,7 +31,7 @@ public class Movie {
     public Float getAvgScore() {
         Double avgScore = ratings.stream()
                 .filter(Objects::nonNull)
-                .mapToDouble(Rating::getScore)
+                .mapToInt(Rating::getScore)
                 .average()
                 .orElse(Double.NaN);
         return avgScore.isNaN()

@@ -22,7 +22,7 @@ public class MovieRatingService {
      *          Optional.of(true) - if movie was rated
      *          Optional.of(false) - if movie was already rated
      */
-    public Optional<Boolean> rateMovie(String movieId, Float score, String userIp) {
+    public Optional<Boolean> rateMovie(String movieId, Integer score, String userIp) {
         Optional<Movie> movie = movieRepository.findById(movieId);
         if (!movie.isPresent()) {
             return Optional.empty();
@@ -32,7 +32,7 @@ public class MovieRatingService {
                 .orElseGet(() -> Optional.of(newRating(score, userIp, movie.get())));
     }
 
-    private Boolean newRating(Float score, String userIp, Movie movie) {
+    private Boolean newRating(Integer score, String userIp, Movie movie) {
         ratingRepository.save(Rating.builder()
                 .movie(movie)
                 .score(score)

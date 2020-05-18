@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 import java.util.Optional;
 
 import static java.util.Optional.ofNullable;
@@ -41,6 +43,8 @@ public class MoviesRatingController extends BaseMoviesRestController {
 
     @Data
     public static class RateRequest {
-        private Float score;
+        @Min(value = 0, message = "Min score is 0")
+        @Max(value = 5, message = "Max score is 5")
+        private Integer score;
     }
 }

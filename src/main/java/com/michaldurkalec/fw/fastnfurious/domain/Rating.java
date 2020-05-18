@@ -20,7 +20,7 @@ public class Rating {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    private Float score;
+    private Integer score;
 
     @ManyToOne(cascade = DETACH)
     @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")

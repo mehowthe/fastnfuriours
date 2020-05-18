@@ -21,7 +21,7 @@ import java.util.Set;
 import static org.springframework.http.ResponseEntity.accepted;
 
 @RestController
-public class MovieCatalogController extends BasePrivMovieController {
+public class MovieCatalogController extends BaseProtectedMovieController {
 
     @Autowired
     private MovieCatalogService movieCatalogService;
