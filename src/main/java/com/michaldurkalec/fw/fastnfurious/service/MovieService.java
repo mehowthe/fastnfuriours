@@ -28,7 +28,7 @@ public class MovieService {
     @Autowired
     private CinemaRepository cinemaRepository;
 
-    public MovieDetails getMovieDetails(String id) {
+    public MovieDetails getRemoteMovieDetails(String id) {
         return MovieDetails.fromOMDbDetails(omDbClient.fetchMovieDetails(id));
     }
 
@@ -36,6 +36,10 @@ public class MovieService {
         List<Movie> movies = new ArrayList<>();
         movieRepository.findAll().forEach(movies::add);
         return movies;
+    }
+
+    public Movie findMovie(String id) {
+        return movieRepository.findById(id).orElse(null);
     }
 
     public List<MovieShow> findMovieShowsByMovie(String movieId) {

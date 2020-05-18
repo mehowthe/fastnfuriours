@@ -1,5 +1,6 @@
 package com.michaldurkalec.fw.fastnfurious.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -24,13 +25,19 @@ public class MovieShow {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @OneToOne(cascade = DETACH)
+    @ManyToOne(cascade = DETACH)
     @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     private Movie movie;
+
     @ManyToOne
     @JoinColumn(name="CINEMA_ID", nullable = false)
     private Cinema cinema;
+
     private Double price;
+
+    @JsonFormat(
+            shape = JsonFormat.Shape.STRING,
+            pattern = "dd-MM-yyyy hh:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date time;
 

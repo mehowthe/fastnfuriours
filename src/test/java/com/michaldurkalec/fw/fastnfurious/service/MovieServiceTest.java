@@ -17,6 +17,7 @@ import java.util.List;
 
 import static java.time.Instant.now;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.hamcrest.core.Is.is;
@@ -29,11 +30,11 @@ public class MovieServiceTest {
     private static final String MOVIE_NAME = "F & F";
     private static final String CINEMA_NAME = "AMC";
 
-    private Movie testMovie1 = new Movie(MOVIE_ID, MOVIE_NAME);
-    private Movie testMovie2 = new Movie(MOVIE_ID2, MOVIE_NAME);
+    private Movie testMovie1 = new Movie(MOVIE_ID, MOVIE_NAME, emptyList());
+    private Movie testMovie2 = new Movie(MOVIE_ID2, MOVIE_NAME, emptyList());
     private Cinema testCinema1 = Cinema.builder()
             .name(CINEMA_NAME)
-            .address("")
+            .address("Address")
             .build();
     private Cinema testCinema2 = testCinema1.toBuilder()
             .name(CINEMA_NAME + "2")

@@ -6,8 +6,8 @@ import com.michaldurkalec.fw.fastnfurious.domain.MovieShow;
 import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
 import com.michaldurkalec.fw.fastnfurious.service.MovieRatingService;
 import com.michaldurkalec.fw.fastnfurious.service.MovieService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,18 +32,25 @@ public class MoviesController extends BaseMoviesRestController {
         return movieService.listMovies();
     }
 
-    @PostMapping("{id}/rate")
-    public ResponseEntity rateMovie(@PathVariable(name = "id") String id, HttpServletRequest request) {
-        if (movieRatingService.rateMovie(id, request.getRemoteAddr())) {
+    @GetMapping("/{movieId}")
+    public MovieDetails getMovieDetails(@PathVariable(name = "movieId") String id, @RequestParam(name = "extended", defaultValue = "false") boolean extended) {
+        MovieDetails movieDetails = movieService.getRemoteMovieDetails(id);
+        if (!extended) {
+            return movieDetails;
+        }
+        Movie movie = movieService.findMovie(id);
+        return movieDetails
+                .withMovieId(movie.getMovieId())
+                .withPrivateRating(movie.getAvgScore());
+    }
+
+    @PostMapping("{movieId}/rate")
+    public ResponseEntity<?> rateMovie(@PathVariable(name = "movieId") String id, @RequestBody RateRequest rate, HttpServletRequest request) {
+        if (movieRatingService.rateMovie(id, rate.getScore(), request.getRemoteAddr())) {
             return ResponseEntity.status(CREATED).build();
         } else {
             return ResponseEntity.status(TOO_MANY_REQUESTS).build();
         }
-    }
-
-    @GetMapping("/details")
-    public MovieDetails getMovieDetails(@RequestParam(name = "id") String id) {
-        return movieService.getMovieDetails(id);
     }
 
     @GetMapping("/shows")
@@ -63,5 +70,9 @@ public class MoviesController extends BaseMoviesRestController {
         return movieService.findMovieShowsByCinema(id);
     }
 
+    @Data
+    public static class RateRequest {
+        private Float score;
+    }
 
 }

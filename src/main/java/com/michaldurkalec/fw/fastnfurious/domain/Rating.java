@@ -5,10 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+
+import static javax.persistence.CascadeType.DETACH;
 
 @Data
 @NoArgsConstructor
@@ -20,7 +19,12 @@ public class Rating {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
-    private Long score;
+
+    private Float score;
+
+    @ManyToOne(cascade = DETACH)
+    @JoinColumn(name = "MOVIE_ID", referencedColumnName = "MOVIE_ID")
     private Movie movie;
+
     private String userIp;
 }

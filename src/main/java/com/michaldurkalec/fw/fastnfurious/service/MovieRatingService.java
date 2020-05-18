@@ -17,7 +17,7 @@ public class MovieRatingService {
     @Autowired
     private RatingRepository ratingRepository;
 
-    public boolean rateMovie(String movieId, Long score, String userIp) {
+    public boolean rateMovie(String movieId, Float score, String userIp) {
         Optional<Movie> movie = movieRepository.findById(movieId);
         if (!movie.isPresent()) {
             throw new IllegalArgumentException("Movie doesn't exists");
@@ -27,7 +27,7 @@ public class MovieRatingService {
                 .orElseGet(() -> newRating(score, userIp, movie.get()));
     }
 
-    private Boolean newRating(Long score, String userIp, Movie movie) {
+    private Boolean newRating(Float score, String userIp, Movie movie) {
         ratingRepository.save(Rating.builder()
                 .movie(movie)
                 .score(score)
