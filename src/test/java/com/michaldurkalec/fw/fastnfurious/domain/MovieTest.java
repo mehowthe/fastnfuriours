@@ -18,11 +18,11 @@ public class MovieTest {
 
     @Test
     public void shouldCalculateAvg() {
-        Rating rating1 = Rating.builder().score(50.f).build();
-        Rating rating2 = Rating.builder().score(100.f).build();
+        Rating rating1 = Rating.builder().score(0).build();
+        Rating rating2 = Rating.builder().score(5).build();
 
         Movie movie = new Movie("id", "title", asList(rating1, rating2));
 
-        assertThat(movie.getAvgScore(), is(75.f));
+        assertThat(movie.getAvgScore(), is(2.5F));
     }
 }

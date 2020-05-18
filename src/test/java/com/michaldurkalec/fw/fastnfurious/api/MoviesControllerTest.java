@@ -95,7 +95,7 @@ public class MoviesControllerTest {
 
         OMDbMovieDetails expectedResult = new OMDbMovieDetails();
         expectedResult.setTitle(EXAMPLE_TITLE);
-        TEST_MOVIE.setRatings(singletonList(Rating.builder().score(50.f).build()));
+        TEST_MOVIE.setRatings(singletonList(Rating.builder().score(5).build()));
 
         when(omdbClient.fetchMovieDetails(EXAMPLE_ID)).thenReturn(expectedResult);
         when(movieRepository.findById(EXAMPLE_ID)).thenReturn(Optional.of(TEST_MOVIE));
@@ -105,7 +105,7 @@ public class MoviesControllerTest {
 
         assertThat(result.getStatusCode(), is(OK));
         assertThat(requireNonNull(result.getBody()).getMovieId(), is(EXAMPLE_ID));
-        assertThat(requireNonNull(result.getBody()).getPrivateRating(), is(50.f));
+        assertThat(requireNonNull(result.getBody()).getPrivateRating(), is(5.f));
     }
 
     @Test
