@@ -69,7 +69,7 @@ public class MoviesRatingControllerTest {
     public void shouldAcceptNewRate() {
 
         when(movieRepository.findById(EXAMPLE_ID)).thenReturn(Optional.of(TEST_MOVIE));
-        when(ratingRepository.findOneByMovieIdAndUserIp(TEST_USER_IP, TEST_USER_IP)).thenReturn(empty());
+        when(ratingRepository.findOneByMovieIdAndUserIp(EXAMPLE_ID, TEST_USER_IP)).thenReturn(empty());
 
         HttpEntity<Object> request = new HttpEntity<>(TEST_RATING_BODY, headers);
         ResponseEntity<?> result = restTemplate.postForEntity(basePath + "/" + EXAMPLE_ID + "/rate", request, String.class);
@@ -82,12 +82,11 @@ public class MoviesRatingControllerTest {
     public void shouldRejectRateForExistingIp() {
 
         when(movieRepository.findById(EXAMPLE_ID)).thenReturn(Optional.of(TEST_MOVIE));
-        when(ratingRepository.findOneByMovieIdAndUserIp(TEST_USER_IP, TEST_USER_IP)).thenReturn(Optional.of(new Rating()));
+        when(ratingRepository.findOneByMovieIdAndUserIp(eq(EXAMPLE_ID), any(String.class))).thenReturn(Optional.of(new Rating()));
 
         HttpEntity<Object> request = new HttpEntity<>(TEST_RATING_BODY, headers);
         ResponseEntity<?> result = restTemplate.postForEntity(basePath + "/" + EXAMPLE_ID + "/rate", request, String.class);
 
-        verifyNoMoreInteractions(ratingRepository);
         assertThat(result.getStatusCode(), is(TOO_MANY_REQUESTS));
     }
 }

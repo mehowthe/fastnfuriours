@@ -6,6 +6,9 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Set;
 
+import static javax.persistence.CascadeType.ALL;
+import static javax.persistence.FetchType.EAGER;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,6 +27,6 @@ public class Cinema {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     @JsonIgnore
-    @OneToMany(mappedBy = "cinema", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cinema", fetch = EAGER, cascade = ALL)
     private Set<MovieShow> movieShows;
 }

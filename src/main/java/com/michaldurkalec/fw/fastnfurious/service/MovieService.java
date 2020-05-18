@@ -50,5 +50,4 @@ public class MovieService {
         return movieShowRepository.findByCinema(cinemaId);
     }
 
-
 }
