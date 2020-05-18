@@ -17,14 +17,19 @@ public class MovieRatingService {
     @Autowired
     private RatingRepository ratingRepository;
 
-    public boolean rateMovie(String movieId, Float score, String userIp) {
+    /**
+     * @return  Optional.empty() - if movie not found
+     *          Optional.of(true) - if movie was rated
+     *          Optional.of(false) - if movie was already rated
+     */
+    public Optional<Boolean> rateMovie(String movieId, Float score, String userIp) {
         Optional<Movie> movie = movieRepository.findById(movieId);
         if (!movie.isPresent()) {
-            throw new IllegalArgumentException("Movie doesn't exists");
+            return Optional.empty();
         }
         Optional<Rating> rating = ratingRepository.findOneByMovieIdAndUserIp(movieId, userIp);
-        return rating.map(ignore -> false)
-                .orElseGet(() -> newRating(score, userIp, movie.get()));
+        return rating.map(ignore -> Optional.of(false))
+                .orElseGet(() -> Optional.of(newRating(score, userIp, movie.get())));
     }
 
     private Boolean newRating(Float score, String userIp, Movie movie) {

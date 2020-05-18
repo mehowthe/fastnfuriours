@@ -1,13 +1,17 @@
 package com.michaldurkalec.fw.fastnfurious.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
 import javax.persistence.Transient;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@JsonInclude(NON_NULL)
 public class MovieDetails {
 
     @With

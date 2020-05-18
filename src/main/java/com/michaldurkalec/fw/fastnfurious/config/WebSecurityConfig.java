@@ -1,7 +1,6 @@
 package com.michaldurkalec.fw.fastnfurious.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -17,10 +16,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/login").permitAll()
-                    .antMatchers(HttpMethod.POST, "/private/**").hasRole("ADMIN")
-                    .antMatchers(HttpMethod.POST, "/movies/rate", "/v1/movies/rate").permitAll()
-                    .antMatchers(HttpMethod.GET, "/movies/**", "/v1/movies/**").permitAll()
-                    .anyRequest().authenticated();
+                    .antMatchers("/private/**").hasRole("ADMIN")
+                    .antMatchers("/movies/**").permitAll()
+                    .anyRequest().authenticated()
+                .and()
+                    .cors()
+                .and()
+                    .csrf()
+                .disable();
 
     }
 

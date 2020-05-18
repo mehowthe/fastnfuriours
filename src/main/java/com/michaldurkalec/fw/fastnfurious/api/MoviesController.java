@@ -4,28 +4,23 @@ import com.michaldurkalec.fw.fastnfurious.domain.Cinema;
 import com.michaldurkalec.fw.fastnfurious.domain.Movie;
 import com.michaldurkalec.fw.fastnfurious.domain.MovieShow;
 import com.michaldurkalec.fw.fastnfurious.domain.dto.MovieDetails;
-import com.michaldurkalec.fw.fastnfurious.service.MovieRatingService;
 import com.michaldurkalec.fw.fastnfurious.service.MovieService;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.TOO_MANY_REQUESTS;
 
 @RestController
 public class MoviesController extends BaseMoviesRestController {
 
     @Autowired
     private MovieService movieService;
-    @Autowired
-    private MovieRatingService movieRatingService;
 
     @GetMapping("/")
     public List<Movie> listMovies() {
@@ -44,15 +39,6 @@ public class MoviesController extends BaseMoviesRestController {
                 .withPrivateRating(movie.getAvgScore());
     }
 
-    @PostMapping("{movieId}/rate")
-    public ResponseEntity<?> rateMovie(@PathVariable(name = "movieId") String id, @RequestBody RateRequest rate, HttpServletRequest request) {
-        if (movieRatingService.rateMovie(id, rate.getScore(), request.getRemoteAddr())) {
-            return ResponseEntity.status(CREATED).build();
-        } else {
-            return ResponseEntity.status(TOO_MANY_REQUESTS).build();
-        }
-    }
-
     @GetMapping("/shows")
     public List<MovieShow> getMovieShowsByMovieId(@RequestParam(name = "id") String id) {
         return movieService.findMovieShowsByMovie(id);
@@ -68,11 +54,6 @@ public class MoviesController extends BaseMoviesRestController {
     @GetMapping("cinemas/program")
     public List<MovieShow> getShowsForCinema(@RequestParam(name = "id") Long id) {
         return movieService.findMovieShowsByCinema(id);
-    }
-
-    @Data
-    public static class RateRequest {
-        private Float score;
     }
 
 }

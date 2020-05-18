@@ -109,17 +109,6 @@ public class MoviesControllerTest {
     }
 
     @Test
-    public void shouldAcceptNewRate() {
-
-    }
-
-    @Test
-    public void shouldRejectRateForExistingIp() {
-
-    }
-
-
-    @Test
     public void shouldReturnMovieShowsByMovie() throws Exception {
 
         Date movieDate = DATE_FORMAT.parse(TEST_MOVIESHOW_TIME);
