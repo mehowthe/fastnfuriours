@@ -27,7 +27,7 @@ public class MoviesController extends BaseMoviesRestController {
     private MovieService movieService;
 
     @ApiOperation(value = "List Fast & Furious movies", nickname = "List Fast & Furious movies")
-    @GetMapping("/")
+    @GetMapping({"/", ""})
     public List<Movie> listMovies() {
         return movieService.listMovies();
     }
