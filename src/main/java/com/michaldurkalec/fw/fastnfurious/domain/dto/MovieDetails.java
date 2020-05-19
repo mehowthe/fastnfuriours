@@ -3,8 +3,6 @@ package com.michaldurkalec.fw.fastnfurious.domain.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 
-import javax.persistence.Transient;
-
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 @Data
@@ -15,10 +13,8 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class MovieDetails {
 
     @With
-    @Transient
     private String movieId;
     @With
-    @Transient
     private Float privateRating;
 
     private String name;

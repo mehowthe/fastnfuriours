@@ -36,22 +36,35 @@ public class MovieCatalogService {
         Cinema cinema = maybeCinema.get();
 
         Set<MovieShow> movieShows = cinema.getMovieShows();
+        processRemoveUpdates(updates, movieShows);
+        processAlterUpdates(updates, movieShows);
+        processCreateUpdates(updates, cinema, movieShows);
+
+        cinemaRepository.save(cinema);
+        return Optional.of(cinema.getMovieShows());
+
+    }
+
+    private void processCreateUpdates(List<ShowUpdate> updates, Cinema cinema, Set<MovieShow> movieShows) {
         updates.stream()
-                .filter(ShowUpdate::isRemove)
-                .forEach(removeRequest -> movieShows.removeIf(show -> removeRequest.getShowId().equals(show.getId())));
+                .filter(MovieCatalogService::isCreate)
+                .map(createRequest -> createNew(cinema, createRequest))
+                .forEach(movieShows::add);
+    }
+
+    private void processAlterUpdates(List<ShowUpdate> updates, Set<MovieShow> movieShows) {
         updates.stream()
                 .filter(MovieCatalogService::isUpdate)
                 .forEach(updateRequest -> movieShows.stream()
                             .filter(show -> updateRequest.getShowId().equals(show.getId()))
                             .findFirst()
                             .ifPresent(updateExisting(updateRequest)));
-        updates.stream()
-                .filter(MovieCatalogService::isCreate)
-                .map(createRequest -> createNew(cinema, createRequest))
-                .forEach(movieShows::add);
-        cinemaRepository.save(cinema);
-        return Optional.of(cinema.getMovieShows());
+    }
 
+    private void processRemoveUpdates(List<ShowUpdate> updates, Set<MovieShow> movieShows) {
+        updates.stream()
+                .filter(ShowUpdate::isRemove)
+                .forEach(removeRequest -> movieShows.removeIf(show -> removeRequest.getShowId().equals(show.getId())));
     }
 
     private static boolean isUpdate(ShowUpdate showUpdate) {
