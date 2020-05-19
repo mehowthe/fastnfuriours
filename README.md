@@ -1,6 +1,7 @@
 # Backend Coding Challenge - The Fast and the Furious franchise
 ![The Fast and the Furious](/docs/logo.png)
 ---
+![Java CI with Gradle](https://github.com/mehowthe/fastnfuriours/workflows/Java%20CI%20with%20Gradle/badge.svg?branch=master)
 ### Intro
 This is a solution for a Backend Coding Challenge ([details](https://gist.github.com/swistaczek/850979644d6df87231ee154958712a07))
 
