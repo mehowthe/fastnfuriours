@@ -2,7 +2,8 @@
 ![The Fast and the Furious](/docs/logo.png)
 ---
 ### Intro
-This is a solution for a Backend Coding Challenge [details](https://gist.github.com/swistaczek/850979644d6df87231ee154958712a07)
+This is a solution for a Backend Coding Challenge ([details](https://gist.github.com/swistaczek/850979644d6df87231ee154958712a07))
+
 A small cinema, which only plays movies from the Fast & Furious franchise, wish to support some functionalities as:
 * providing information about movie times
 * providing details about movies (that are fetched from [OMDB](http://www.omdbapi.com/))
